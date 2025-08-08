@@ -76,6 +76,35 @@ function setHeader($allow_password)
     if (!isset($_SESSION)) {
         session_start();
     }
+    
+    // 检查是否要移除密码
+    if (!empty($_POST['removePassword']) && $_POST['removePassword'] == "1") {
+        // 验证当前密码是否正确
+        $path = $GLOBALS['data_directory'] . $_GET['note'];
+        if (file_exists($path)) {
+            $firstline = fgets(fopen($path, 'r'));
+            $firstline = str_replace(array("\n", "\r"), '', $firstline);
+            parse_str($firstline, $noteheader);
+            
+            if (isset($noteheader['password']) && !empty($noteheader['password'])) {
+                $current_password_hash = $noteheader['password'];
+                $input_password = isset($_POST['notepwd']) ? $_POST['notepwd'] : '';
+                
+                // 验证输入的密码是否与当前密码匹配
+                if (empty($input_password) || !password_verify($input_password, $current_password_hash)) {
+                    // 密码验证失败，返回错误
+                    return false; // 这将导致密码移除失败
+                }
+            }
+        }
+        
+        // 密码验证成功，移除密码
+        unset($_SESSION[$session_key]);
+        unset($_SESSION[$session_key.'hash']);
+        unset($_SESSION[$session_key.'allowReadOnlyView']);
+        return ""; // 返回空字符串表示没有header
+    }
+    
     // if the password and allowReadOnlyView hasn't been set from the form fields then get it from the session values
     // this solves the issue of not having the password on the page after it has been set
     if (isset($_SESSION[$session_key])) {
@@ -98,14 +127,7 @@ function setHeader($allow_password)
         $_SESSION[$session_key.'allowReadOnlyView'] = $allowReadOnlyView;
         // TODO: if the page is simple then rely on session setting
     } // create the password string for the header
-    if (!empty($_POST['removePassword'])) {
-        if ($_POST['removePassword'] == "1") {
-            $pwd="";
-            unset($_SESSION[$session_key]);
-            unset($_SESSION[$session_key.'hash']);
-            unset($_SESSION[$session_key.'allowReadOnlyView']);
-        } //remove the password
-    }
+    
     $header = $header . $pwd . "\n"; //add the password string to the header
     // check if anything has been added to the header (password or other)
     if (trim($header) == $header) {

@@ -38,7 +38,7 @@ function downloadFile() {
 
 function toggleMonospace(lnk_obj) {
   var x = document.getElementById("content");
-  lnk_obj.innerHTML = (lnk_obj.innerHTML == 'mono') ? 'sans' : 'mono';
+  lnk_obj.innerHTML = (lnk_obj.innerHTML == '等宽') ? '非等宽' : '等宽';
   if (x.style.fontFamily == "monospace") {
     x.style.fontFamily = "sans-serif";
   } else {
@@ -47,11 +47,11 @@ function toggleMonospace(lnk_obj) {
 }
 
 function deleteFile() {
-  var r = confirm("您确定要删除此便笺吗?");
+  var r = confirm("确定要删除此笔记吗？");
   if (r == true) {
     document.getElementById('content').value = '';
     uploadContent();
-    alert('Note deleted');
+    alert('笔记已删除');
     // Note has been deleted so open a new note (going back to the same note, not a new note, looks confusing)
     var url = window.location.href;
     window.location.href = url.substring(0, url.lastIndexOf('/'));

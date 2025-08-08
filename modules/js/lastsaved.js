@@ -23,7 +23,7 @@ function lastSaved() {
       var myDate = new Date(lastSave);
       result = myDate.getTime();
     }
-    var savedStatus = lastText() + ago(result) + ' ago';
+    var savedStatus = lastText() + ago(result);
     //update the saved status if it has changed
     if (savedStatus != document.getElementById("savedStatus").innerHTML) document.getElementById("savedStatus").innerHTML = savedStatus;
   }
@@ -31,10 +31,9 @@ function lastSaved() {
 
 function lastText() {
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-  var lastSavedText = "上次保存时间： ";
+  var lastSavedText = "上次保存: ";
   if (w < 600) {
-    lastSavedText = "保存时间: ";
+    lastSavedText = "已保存: ";
   }
   return lastSavedText;
 }
-

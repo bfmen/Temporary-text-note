@@ -15,7 +15,7 @@ header('Expires: 0');
 if (!isset($_GET['note']) || !preg_match('/^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)$/', $_GET['note'])) {
 
     // 生成一个包含5个随机字符的名称，重定向。
-    header("Location: $base_url/" . substr(str_shuffle('12345679'), -5));
+    header("Location: $base_url/" . substr(str_shuffle('123456790'), -5));
     die;
 }
 
@@ -28,16 +28,27 @@ if (isset($_POST['text'])) {
     // Update file.
     $header = "";
     $responseText = "";
-	  if ($include_Header) { if (checkHeader($path, null) || isset($_POST['notepwd'])) { $header = setHeader($allow_password);} else $header = "";}
+    if ($include_Header) { 
+        if (checkHeader($path, null) || isset($_POST['notepwd'])) { 
+            $header = setHeader($allow_password);
+            // 检查setHeader是否返回false（密码验证失败）
+            if ($header === false) {
+                echo "密码验证失败";
+                die();
+            }
+        } else {
+            $header = "";
+        }
+    }
     file_put_contents($path, $header . $_POST['text']);
     $responseText =  "saved"; //for lastsaved logic
 
-    // 如果您不想检查写入权限，以下3行可以被注释掉
+    // the following 3 lines can be commented out if you don't want to check write permissions
     $filecheck = file_exists($path);
-    if ($filecheck) $responseText =  "saved"; //对于上次保存的逻辑
+    if ($filecheck) $responseText =  "saved"; //for lastsaved logic
     if (!is_writable($path)) $responseText = 'error';
 
-    // 如果提供的输入为空，请删除文件。
+    // If provided input is empty, delete file.
     if (!strlen($_POST['text'])) {
         unlink($path);
         $responseText = "deleted";
@@ -47,7 +58,7 @@ if (isset($_POST['text'])) {
 
 }
 
-// 如果客户端是curl，则输出原始文件。当前未处理受密码保护的笔记
+// Output raw file if client is curl. No current handling of password protected notes
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'curl') === 0) {
     if (is_file($path)) {
       if ($include_Header)  {
@@ -77,11 +88,10 @@ if (is_file($path)) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="generator" content="临时文本便签)">
-  <title>临时文本便签</title>
-  <link rel="shortcut icon" href="favicon.png">
+  <meta name="generator" content="Minimal Web Notepad (https://github.com/domorielton/minimal-web-notepad)">
+  <title><?php print $_GET['note']; ?></title>
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="css/styles.min.css">
-
 </head>
 <body>
   <div id="container" class="container">
@@ -98,8 +108,8 @@ if (is_file($path)) {
   if ($allow_password) {
     include 'modules/password.php';
     echo '<script src="modules/js/modal.min.js"></script>'.PHP_EOL;
-    echo "<script src='modules/js/password.min.js'></script>".PHP_EOL;
+    // password.js functionality is now inline in modules/password.php
   }
-	if ($include_Header) { checkHeader($path, null, true); } //检查是否显示删除密码 ?>
+	if ($include_Header) { checkHeader($path, null, true); } //check if the removePassword be shown ?>
 </body>
 </html>

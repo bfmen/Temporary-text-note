@@ -27,5 +27,5 @@ function copyToClipboard(elementId) {
   // Remove the input from the body
   document.body.removeChild(aux);
 
-  document.getElementById("copyMessage").innerHTML = "<br>Copied";
+  document.getElementById("copyMessage").innerHTML = "<br>已复制";
 }

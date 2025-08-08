@@ -38,7 +38,7 @@ function CreateViewable(noBorder) {
 
 function toggleView(lnk_obj) {
   var x = document.getElementById("content");
-  lnk_obj.innerHTML = (lnk_obj.innerHTML == 'view') ? 'edit' : 'view';
+  lnk_obj.innerHTML = (lnk_obj.innerHTML == '查看') ? '编辑' : '查看';
   if (x.style.display === "none") {
     x.style.display = "block";
     var element = document.getElementById("contentWithLinks");

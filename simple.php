@@ -64,7 +64,7 @@ if (is_file($path)) {
 </head>
 <body>
     <div class="container">
-		<textarea id="contentAdd" class="contentAdd" placeholder="add to the note by typing here" autofocus></textarea>
+		<textarea id="contentAdd" class="contentAdd" placeholder="在此输入以向笔记追加内容" autofocus></textarea>
         <textarea id="content" class="content"><?php
            echo $content;
         ?></textarea>
@@ -75,8 +75,8 @@ if (is_file($path)) {
     <script src="modules/js/view.min.js"></script>
   	<div class="footer">
   		<div class="navbar" id="navbar">
-  			<a onclick='toggleView(this)' id='a_view' class='active'>edit</a>
-  			<a onclick='location.reload();' id='a_view' class='active'>refresh</a>
+  			<a onclick='toggleView(this)' id='a_view' class='active'>编辑</a>
+  			<a onclick='location.reload();' id='a_view' class='active'>刷新</a>
   		</div>
   	</div>
     <script>toggleView('a_view');</script>

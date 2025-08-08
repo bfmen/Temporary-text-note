@@ -13,9 +13,19 @@ function ago(val) {
     },
     result;
 
+  var unitMapCN = {
+    second: '秒',
+    minute: '分钟',
+    hour: '小时',
+    day: '天',
+    week: '周',
+    month: '个月',
+    year: '年'
+  };
+
   for (unit in length) {
     result = val % length[unit];
     if (!(val = 0 | val / length[unit]))
-      return result + ' ' + (result - 1 ? unit + 's' : unit);
+      return result + ' ' + unitMapCN[unit] + '前';
   }
 }

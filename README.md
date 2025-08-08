@@ -19,4 +19,3 @@ location / {
 
 还有一个setup.php页面可用于检查_notes目录是否存在以及是否可以写入。如果您在保存笔记时遇到困难，可能值得删除目录_notes，然后转到setup.php页面创建文件夹。如果一切正常，那么您可以setup.php根据需要删除该文件。
 
-在某些情况下，$base_url 变量config.php需要替换为安装的硬编码 URL 路径。如果是这种情况，只需将开头的行替换config.php为 $base_url = dirname('//' with $base_url ='http://7761.com'

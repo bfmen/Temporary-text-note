@@ -16,15 +16,14 @@ if(!file_exists('notelist.php')) {$allow_noteslist = false; }
 <div class="footer">
 	<div class="navbar" id="navbar">
 		<a id="menuButton" style="font-size:15px;" class="icon" onclick="navbarResponsive()">&#9776;</a>
-		<?php if($allow_view) echo "<a onclick='toggleView(this)' id='a_view' class='active'>预览编辑</a>".PHP_EOL; ?>
-		<?php if($allow_copy) echo "<a onclick='toggleModal_Copy();navbarResponsive();' title='copy note url or content'>复制文本</a>".PHP_EOL; ?>
-		<?php if($allow_download) echo "<a onclick='downloadFile();navbarResponsive();'>下载文本</a>".PHP_EOL; ?>
-		<?php if($allow_mono) echo "<a onclick='toggleMonospace(this);navbarResponsive();' title='monospace font on/off'>字体大小</a>".PHP_EOL; ?>
-		<?php if($allow_password) echo "<a onclick='toggleModal_Password();'>设置密码</a>".PHP_EOL; ?>
-		<?php if($allow_delete) echo "<a onclick='navbarResponsive();deleteFile()'>删除文本</a>".PHP_EOL; ?>
-		<?php if($allow_new) echo "<a href=" . $base_url . "/>新建文本</a>".PHP_EOL; ?>
-		<?php if($allow_noteslist) echo "<a href='notelist.php'>管理列表</a>".PHP_EOL; ?>
-		<?php if($allow_noteslist) echo "<a href='about.html'>关于</a>".PHP_EOL; ?>
+		<?php if($allow_view) echo "<a onclick='toggleView(this)' id='a_view' class='active'>查看</a>".PHP_EOL; ?>
+		<?php if($allow_copy) echo "<a onclick='toggleModal_Copy();navbarResponsive();' title='复制笔记链接或内容'>复制</a>".PHP_EOL; ?>
+		<?php if($allow_download) echo "<a onclick='downloadFile();navbarResponsive();'>下载</a>".PHP_EOL; ?>
+		<?php if($allow_mono) echo "<a onclick='toggleMonospace(this);navbarResponsive();' title='切换等宽字体'>等宽</a>".PHP_EOL; ?>
+		<?php if($allow_password) echo "<a onclick='toggleModal_Password();'>密码</a>".PHP_EOL; ?>
+		<?php if($allow_delete) echo "<a onclick='navbarResponsive();deleteFile()'>删除</a>".PHP_EOL; ?>
+		<?php if($allow_new) echo "<a href=" . $base_url . "/>新建</a>".PHP_EOL; ?>
+		<?php if($allow_noteslist) echo "<a href='notelist.php'>后台</a>".PHP_EOL; ?>
 	</div>
 </div>
 <?php if($allow_copy) include 'modules/copy.php' ?>
